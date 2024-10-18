@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Служби таксі</title>
+    <link rel="stylesheet" href="../static/styles/index.css">
+    <link rel="stylesheet" href="../static/styles/cards.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Керування БД</h1>
+            <div class="button-group">
+                <button id="login-btn" class="btn" onclick="goToLogin()">Логін</button>
+                <button id="logout-btn" class="btn logout" onclick="logout()" style="display: none;">Вийти з
+                    акаунта</button>
+            </div>
+        </div>
+
+        <div class="add-collection">
+            <input type="text" id="new-collection-name" placeholder="Назва нової колекції">
+            <button id="add-collection-btn" class="btn add" onclick="addNewCollection()">Додати колекцію</button>
+        </div>
+
+        <div class="collection-selector">
+            <label for="collection-select">Оберіть колекцію для відображення:</label>
+            <select id="collection-select">
+            </select>
+            <button id="delete-collection-btn" class="btn delete" onclick="deleteCollection()">Видалити обрану
+                колекцію</button>
+        </div>
+
+        <div class="new-field">
+            <h4>Додати нову колонку</h4>
+            <input type="text" id="field-name" placeholder="Назва поля">
+            <select id="field-type">
+                <option value="string">Text</option>
+                <option value="number">Number</option>
+                <option value="date">Date</option>
+                <option value="boolean">boolean</option>
+                <option value="objectId">objectId</option>
+            </select>
+            <button class="btn" onclick="addNewField()">Додати поле</button>
+            </form>
+        </div>
+        <div class="rename-field">
+            <h4>Перейменувати колонку</h4>
+            <label for="field-select">Оберіть поле для перейменування:</label>
+            <select id="field-select" required>
+            </select>
+
+            <input type="text" id="new-field-name" placeholder="Нова назва колонки" required>
+            <button class="btn" onclick="renameField()">Перейменувати</button>
+            <button class="btn delete" onclick="deleteField()">Видалити</button>
+        </div>
+        <div class="add-document">
+            <h4>Додати новий документ</h4>
+            <form id="document-form" onsubmit="createDocument(event)">
+                <div id="document-fields-container"></div>
+                <button type="submit" class="btn">Додати документ</button>
+            </form>
+        </div>
+        <div class="document-container" id="document-container">
+        </div>
+    </div>
+
+    <script src="../static/js/fields.js"></script>
+    <script src="../static/js/collections.js"></script>
+    <script src="../static/js/documents.js"></script>
+    <script src="../static/js/index.js"></script>
+</body>
+
+</html>

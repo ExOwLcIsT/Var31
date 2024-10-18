@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Логін / Реєстрація</title>
+   <link rel="stylesheet" href="../static/styles/login.css">
+</head>
+
+<body>
+    <div class="container mt-4">
+        <h1 class="mb-4">Вхід або Реєстрація</h1>
+
+        <div class="mb-5">
+            <button class="btn btn-secondary" id="show-login">Форма для входу</button>
+            <button class="btn btn-secondary" id="show-register">Форма для реєстрації</button>
+        </div>
+
+        <!-- Login Form -->
+        <form id="login-form" class="mb-4">
+            <h2>Вхід</h2>
+            <div class="mb-3">
+                <label for="login-username" class="form-label">Логін</label>
+                <input type="text" id="login-username" class="form-control" placeholder="Введіть логін">
+                <div id="login-username-error" class="text-danger"></div>
+            </div>
+
+            <div class="mb-3">
+                <label for="login-password" class="form-label">Пароль</label>
+                <input type="password" id="login-password" class="form-control" placeholder="Введіть пароль">
+                <div id="login-password-error" class="text-danger"></div>
+            </div>
+
+            <button type="button" id="login-btn" class="btn btn-primary">Увійти</button>
+            <button type="button" id="forgot-password-btn" class="btn btn-link">Забули пароль?</button>
+            <div id="login-error" class="mt-3 text-danger"></div>
+            <div id="forgot-password-response" class="mt-3 text-info"></div>
+        </form>
+
+        <!-- Register Form -->
+        <form id="register-form" class="hidden">
+            <h2>Реєстрація</h2>
+            <div class="mb-3">
+                <label for="register-username" class="form-label">Логін</label>
+                <input type="text" id="register-username" class="form-control" placeholder="Введіть логін">
+                <div id="register-username-error" class="text-danger"></div>
+            </div>
+
+            <div class="mb-3">
+                <label for="register-password" class="form-label">Пароль</label>
+                <input type="password" id="register-password" class="form-control" placeholder="Введіть пароль">
+                <div id="register-password-error" class="text-danger"></div>
+            </div>
+
+            <div class="mb-3">
+                <label for="register-access-rights" class="form-label">Права доступу</label>
+                <select id="register-access-rights" class="form-select">
+                    <option value="user">Користувач</option>
+                    <option value="operator">Оператор</option>
+                    <option value="admin">Адміністратор</option>
+                    <option value="owner">Власник</option>
+                </select>
+                <div id="register-access-rights-error" class="text-danger"></div>
+            </div>
+
+            <button type="button" id="register-btn" class="btn btn-success">Зареєструватись</button>
+            <div id="register-error" class="mt-3 text-danger"></div>
+        </form>
+    </div>
+
+    <script src="../static/js/login.js"></script>
+</body>
+
+</html>

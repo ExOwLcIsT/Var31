@@ -1,0 +1,96 @@
+/* Стиль для картки документа */
+.document-card {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    margin: 10px 0;
+    transition: box-shadow 0.3s;
+    position: relative;
+}
+
+.document-card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Стиль для полів документа */
+.document-field {
+    margin-bottom: 10px;
+}
+
+/* Стиль для значення поля */
+.field-value {
+    color: #333;
+}
+
+/* Стиль для кнопки редагування */
+.edit-button {
+    margin-left: 10px;
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    float: right;
+}
+
+.edit-button:hover {
+    background-color: #0056b3;
+}
+.add-document {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.add-document h4 {
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+#document-form {
+    display: flex;
+    flex-direction: column;
+}
+
+#document-fields-container {
+    margin-bottom: 15px;
+}
+
+#document-fields-container input,
+#document-fields-container select {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+#document-fields-container input[type="checkbox"] {
+    width: auto; /* Keep the checkbox size manageable */
+    margin-right: 10px; /* Add space between checkbox and label */
+}
+
+.btn {
+    padding: 10px 15px;
+    background-color: #007bff; /* Bootstrap primary color */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #0056b3; /* Darken on hover */
+}
+
+.btn:disabled {
+    background-color: #ccc; /* Disable styling */
+    cursor: not-allowed;
+}
