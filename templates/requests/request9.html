@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clients with Multiple Taxi Services</title>
+</head>
+
+<body>
+    <h1>Clients Who Used More Than One Taxi Service</h1>
+    <button id="fetchClients">Fetch Clients</button>
+    <div id="clientsResult"></div>
+
+    <script>
+        document.getElementById('fetchClients').addEventListener('click', function () {
+            fetch('/api/clients/multiple_services')
+                .then(response => response.json())
+                .then(data => {
+                    data.forEach(element => {
+                        let p = document.createElement("p");
+                        p.innerText = element;
+                        document.getElementById('clientsResult').appendChild(p);
+                    });
+                })
+                .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Таксі Запити</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        button {
+            padding: 10px 15px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Детальна інформація про виїзди</h1>
+
+    <form id="service-form">
+        <div class="form-group">
+            <label for="service">Виберіть службу таксі:</label>
+            <select id="service">
+                <!-- Динамічно заповнити з бази даних -->
+            </select>
+        </div>
+        <button type="submit">Показати виїзди</button>
+    </form>
+
+    <h2>Результати:</h2>
+    <table id="rides-table">
+        <thead>
+            <tr>
+                <th>Car Name</th>
+                <th>Driver Name</th>
+                <th>Service Name</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Distance (km)</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Дані поїздок будуть додані сюди -->
+        </tbody>
+    </table>
+
+
+    <script>
+        document.getElementById('service-form').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const service = document.getElementById('service').value;
+
+            const response = await fetch(`/api/rides?service=${service}`);
+            const rides = await response.json();
+
+            const tableBody = document.querySelector('#rides-table tbody');
+            tableBody.innerHTML = ''; // Очищуємо таблицю перед заповненням
+
+            rides.forEach(ride => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                <td>${ride.car_name}</td>
+                <td>${ride.driver_name}</td>
+                <td>${ride.service_name}</td>
+                <td>${new Date(ride.start_time).toLocaleString()}</td>
+                <td>${new Date(ride.end_time).toLocaleString()}</td>
+                <td>${ride.distance_km}</td>
+                <td>${ride.status}</td>
+            `;
+                tableBody.appendChild(row);
+            });
+        });
+
+        async function loadServices() {
+            const response = await fetch('/api/services');
+            const services = await response.json();
+            const select = document.getElementById('service');
+
+            services.forEach(service => {
+                console.log(service)
+                const option = document.createElement('option');
+                option.value = service._id;
+                option.textContent = service.name;
+                select.appendChild(option);
+            });
+        }
+
+        loadServices();
+    </script>
+
+</body>
+
+</html>

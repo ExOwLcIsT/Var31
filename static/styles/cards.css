@@ -94,3 +94,7 @@
     background-color: #ccc; /* Disable styling */
     cursor: not-allowed;
 }
+.field-input
+{
+    text-align: center;
+}

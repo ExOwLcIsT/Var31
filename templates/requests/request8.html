@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Обчислення пробігу автомобіля</title>
+</head>
+<body>
+    <h1>Обчислити загальну довжину пробігу автомобіля за день</h1>
+    
+    <label for="carNumber">Номер машини:</label>
+    <input type="text" id="carNumber" required>
+
+    <label for="date">Дата (YYYY-MM-DD):</label>
+    <input type="date" id="date" required>
+
+    <button onclick="getCarMileage()">Отримати пробіг</button>
+
+    <h2>Результат:</h2>
+    <h2 id="mileageResult"></h2>
+
+    <script>
+        function getCarMileage() {
+            const license_plate = document.getElementById('carNumber').value;
+            const date = document.getElementById('date').value;
+
+            fetch(`/api/cars/mileage?license_plate=${license_plate}&date=${date}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('mileageResult').textContent = JSON.stringify(data, null, 2);
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    </script>
+</body>
+</html>

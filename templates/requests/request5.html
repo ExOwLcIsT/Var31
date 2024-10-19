@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Клієнти, що замовляли таксі</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Клієнти, що замовляли таксі за вказаною адресою</h2>
+        <div class="form-group">
+            <label for="address-input">Введіть адресу:</label>
+            <input type="text" id="address-input" class="form-control" placeholder="Введіть адресу">
+        </div>
+        <button class="btn btn-primary" onclick="fetchClients()">Пошук</button>
+
+        <table class="table table-bordered mt-4" id="clients-table">
+            <thead>
+                <tr>
+                    <th>Ім'я</th>
+                    <th>Прізвище</th>
+                    <th>Телефон</th>
+                    <th>Адреса</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Дані клієнтів будуть вставлені тут -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function fetchClients() {
+            const address = document.getElementById('address-input').value;
+            fetch(`/api/clients/by_address?address=${address}`)
+                .then(response => response.json())
+                .then(data => {
+                    const tableBody = document.getElementById('clients-table').querySelector('tbody');
+                    tableBody.innerHTML = ''; // Очищаємо таблицю
+
+                    // Заповнюємо таблицю даними
+                    data.forEach(client => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${client.first_name}</td>
+                            <td>${client.last_name}</td>
+                            <td>${client.phone}</td>
+                            <td>${client.address}</td>
+                        `;
+                        tableBody.appendChild(row);
+                    });
+                })
+                .catch(error => console.error('Error fetching clients:', error));
+        }
+    </script>
+</body>
+</html>

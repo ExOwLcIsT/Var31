@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Інформація про клієнта</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Інформація про клієнта</h1>
+        <input type="text" id="clientId" placeholder="Введіть ID клієнта">
+        <button onclick="fetchClientData()">Отримати інформацію</button>
+
+        <h2 class="mt-4">Поїздки за останній тиждень</h2>
+        <ul id="weeklyTripsList" class="list-group"></ul>
+
+        <h2 class="mt-4">Кількість викликів за останній місяць</h2>
+        <div id="monthlyCallsCount"></div>
+    </div>
+
+    <script>
+        async function fetchClientData() {
+            const clientId = document.getElementById('clientId').value;
+
+            // Отримати поїздки за тиждень
+            const weeklyResponse = await fetch(`/api/client/${clientId}/trips/weekly`);
+            const weeklyData = await weeklyResponse.json();
+            const weeklyTripsList = document.getElementById('weeklyTripsList');
+            weeklyTripsList.innerHTML = '';
+            weeklyData.forEach(trip => {
+                const listItem = document.createElement('li');
+                listItem.className = 'list-group-item';
+                listItem.textContent = `Поїздка: ${trip.order_date}, Куди: ${trip.destination_address}`;
+                weeklyTripsList.appendChild(listItem);
+            });
+
+            // Отримати кількість викликів за місяць
+            const monthlyResponse = await fetch(`/api/client/${clientId}/calls/monthly`);
+            const monthlyData = await monthlyResponse.json();
+            document.getElementById('monthlyCallsCount').textContent = `Кількість викликів: ${monthlyData}`;
+        }
+    </script>
+</body>
+</html>

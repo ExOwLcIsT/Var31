@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Водії за маркою автомобіля</title>
+   
+</head>
+<body>
+    <h1>Водії за маркою автомобіля</h1>
+    <input type="text" id="car-brand" placeholder="Введіть марку автомобіля" required>
+    <button onclick="fetchDrivers()">Пошук водіїв</button>
+    <div id="results"></div>
+    <script>
+        async function fetchDrivers() {
+            const brand = document.getElementById('car-brand').value;
+            const response = await fetch(`/api/drivers/by_car_brand?brand=${brand}`);
+            const data = await response.json();
+            console.log(data)
+            const resultsContainer = document.getElementById('results');
+            resultsContainer.innerHTML = ''; 
+
+            if (Array.isArray(data) && data.length > 0) {
+                data.forEach(driver => {
+                    const driverDiv = document.createElement('div');
+                    driverDiv.innerHTML = `Ім'я: ${driver.first_name}, Прізвище: ${driver.last_name}`;
+                    resultsContainer.appendChild(driverDiv);
+                });
+            } else {
+                resultsContainer.innerHTML = 'Водії не знайдені.';
+            }
+        }
+    </script>
+</body>
+</html>

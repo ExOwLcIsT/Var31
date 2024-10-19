@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taxi Service Reports</title>
+</head>
+
+<body>
+    <h1>Звіт про служби таксі</h1>
+
+    <h2>Служба таксі з максимальною кількістю замовлень</h2>
+    <button onclick="getMaxOrdersTaxiService()">Отримати</button>
+    <pre id="max-orders-result"></pre>
+
+    <h2>Служби таксі з більше 100 викликами на день</h2>
+    <button onclick="getTaxiServicesMoreThan100Orders()">Отримати</button>
+    <pre id="more-than-100-orders-result"></pre>
+
+    <script>
+        function getMaxOrdersTaxiService() {
+            const startDate = prompt("Введіть дату початку (YYYY-MM-DD):");
+            const endDate = prompt("Введіть дату закінчення (YYYY-MM-DD):");
+
+            fetch(`/api/taxi_services/max_orders?start_date=${startDate}&end_date=${endDate}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('max-orders-result').textContent = data.service_name + ": " +
+                        total_orders;
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        function getTaxiServicesMoreThan100Orders() {
+            fetch(`/api/taxi_services/more_than_100_orders`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.service_name != undefined)
+                        document.getElementById('more-than-100-orders-result').textContent = data.service_name +
+                        " " +
+                        data.order_day + " " + data.total_orders;
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    </script>
+</body>
+
+</html>

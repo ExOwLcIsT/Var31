@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Водії без замовлень за сьогодні</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Водії, які не виконали жодного замовлення за сьогодні</h2>
+        <table class="table table-bordered" id="drivers-table">
+            <thead>
+                <tr>
+                    <th>Ім'я</th>
+                    <th>Прізвище</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Дані водіїв будуть вставлені тут -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Завантажуємо водіїв, які не мають замовлень за сьогодні
+        fetch('/api/drivers/no_orders_today')
+            .then(response => response.json())
+            .then(data => {
+                const tableBody = document.getElementById('drivers-table').querySelector('tbody');
+                tableBody.innerHTML = ''; // Очищаємо таблицю
+
+                // Заповнюємо таблицю даними
+                data.forEach(driver => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${driver.first_name}</td>
+                        <td>${driver.last_name}</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            })
+            .catch(error => console.error('Error fetching drivers:', error));
+    </script>
+</body>
+</html>

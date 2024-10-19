@@ -157,7 +157,8 @@ async function loadFieldsForDocument() {
             const label = document.createElement('label');
             label.textContent = field.field_name;
             fieldDiv.appendChild(label);
-
+            
+            fieldDiv.innerHTML += "</br>";
             const input = document.createElement('input');
             input.type = field.field_type; // Default to text input; you can modify this to match the type if needed
             input.id = field.field_name; // Set the ID to the field name
