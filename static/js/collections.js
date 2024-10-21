@@ -58,12 +58,14 @@ async function deleteCollection() {
             alert('Потрібно обрати колекцію для видалення');
             return;
         }
-        const response = await fetch(`/api/collections/${collectionName}`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
+        if (confirm("Ви дійсно хочете видалити колекцію?")) {
+            const response = await fetch(`/api/collections/${collectionName}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+        
 
         if (!response.ok) {
             throw new Error('Не вдалося видалити колекцію');
@@ -72,12 +74,13 @@ async function deleteCollection() {
         const result = await response.json();
 
         if (result.message) {
-            console.log(result.message);
-            alert(result.message); 
+            alert(result.message);
+            location.reload();
         } else if (result.error) {
             console.error(result.error);
             alert('Помилка: ' + result.error);
         }
+    }
     } catch (error) {
         console.error('Помилка при видаленні колекції:', error);
         alert('Помилка при видаленні колекції: ' + error.message);

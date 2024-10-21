@@ -65,7 +65,8 @@ body {
     border: 1px solid #dee2e6;
     border-radius: 4px;
     padding: 15px;
-    flex: 1 0 200px; /* Flex-grow, flex-shrink, flex-basis */
+    flex: 1 0 200px;
+    /* Flex-grow, flex-shrink, flex-basis */
 }
 
 .card h5 {
@@ -74,4 +75,11 @@ body {
 
 .card p {
     margin: 5px 0;
+}
+
+
+.owner_access,
+.admin_access,
+.operator_access {
+    display: none;
 }

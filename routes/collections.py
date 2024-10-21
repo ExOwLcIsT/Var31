@@ -2,10 +2,10 @@ from datetime import datetime
 from flask import Blueprint, Response, jsonify, request
 from bson import json_util
 
-from decorators.role_controls import role_required
+from decorators.role_controls import get_current_user, role_required
 
 from dbconnection.db import db
-
+from routes.login import get_role
 collections_bp = Blueprint('collections', __name__)
 
 
@@ -13,9 +13,14 @@ collections_bp = Blueprint('collections', __name__)
 def get_all_collections():
     try:
         collections = db.list_collection_names()
-        collections.remove("Keys");
+
+        user = get_current_user()
+        if user != None and user["access_rights"] != "owner":
+            print(collections)
+            collections.remove("Keys")
         return jsonify(collections), 200
     except Exception as e:
+        print(e)
         return jsonify({'error': str(e)}), 500
 
 
@@ -37,5 +42,3 @@ def create_collection(collection_name):
         return jsonify({'message': f'Колекція {collection_name} створена успішно'}), 201
     except Exception as e:
         return jsonify({'error': str(e)}), 500
-
-

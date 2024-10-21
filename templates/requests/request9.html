@@ -8,23 +8,20 @@
 </head>
 
 <body>
-    <h1>Clients Who Used More Than One Taxi Service</h1>
-    <button id="fetchClients">Fetch Clients</button>
+    <h1>Клієнти, які користувалися більше ніж однією службою таксі</h1>
     <div id="clientsResult"></div>
 
     <script>
-        document.getElementById('fetchClients').addEventListener('click', function () {
-            fetch('/api/clients/multiple_services')
-                .then(response => response.json())
-                .then(data => {
-                    data.forEach(element => {
-                        let p = document.createElement("p");
-                        p.innerText = element;
-                        document.getElementById('clientsResult').appendChild(p);
-                    });
-                })
-                .catch(error => console.error('Error:', error));
-        });
+        fetch('/api/clients/multiple_services')
+            .then(response => response.json())
+            .then(data => {
+                data.forEach(element => {
+                    let p = document.createElement("p");
+                    p.innerText = element;
+                    document.getElementById('clientsResult').appendChild(p);
+                });
+            })
+            .catch(error => console.error('Error:', error));
     </script>
 </body>
 

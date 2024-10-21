@@ -10,9 +10,19 @@
 <body>
     <h1>Звіт про служби таксі</h1>
 
-    <h2>Служба таксі з максимальною кількістю замовлень</h2>
-    <button onclick="getMaxOrdersTaxiService()">Отримати</button>
-    <pre id="max-orders-result"></pre>
+    <h2>Служба таксі з максимальною кількістю замовлень у певному періоді</h2>
+    <label for="startDate">Введіть дату початку періоду</label>
+    <br>
+    <input id="startDate" type="date"><br>
+    <label for="endDate">Введіть дату кінця періоду</label><br>
+    <input id="endDate" type="date"><br>
+    <button onclick="getMaxOrdersTaxiService()">Отримати</button><br>
+    <table id="max-orders-result">
+        <tr>
+            <th>Служба таксі</th>
+            <th>кількість замовлень</th>
+        </tr>
+    </table>
 
     <h2>Служби таксі з більше 100 викликами на день</h2>
     <button onclick="getTaxiServicesMoreThan100Orders()">Отримати</button>
@@ -20,14 +30,18 @@
 
     <script>
         function getMaxOrdersTaxiService() {
-            const startDate = prompt("Введіть дату початку (YYYY-MM-DD):");
-            const endDate = prompt("Введіть дату закінчення (YYYY-MM-DD):");
-
+            const startDate = document.getElementById("startDate").value;
+            const endDate = document.getElementById("endDate").value;
+            console.log(startDate);
             fetch(`/api/taxi_services/max_orders?start_date=${startDate}&end_date=${endDate}`)
                 .then(response => response.json())
                 .then(data => {
-                    document.getElementById('max-orders-result').textContent = data.service_name + ": " +
-                        total_orders;
+                    console.log(data)
+                    data.forEach(element => {
+                        document.getElementById('max-orders-result').innerHTML += "<tr><td>" + element.service_name + "</td><td>" +
+                                element.total_orders + "</td></tr>";
+                    });
+
                 })
                 .catch(error => console.error('Error:', error));
         }

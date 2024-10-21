@@ -50,21 +50,25 @@ async function renameField() {
 async function deleteField() {
     const collectionName = document.getElementById('collection-select').value;
     const fieldName = document.getElementById('field-select').value;
-    try {
-        const response = await fetch(`/api/fields/${collectionName}/${fieldName}`, {
-            method: 'DELETE'
-        });
+    if (confirm("Ви дійсно хочете видалити колекцію?")) {
+        try {
 
-        const result = await response.json();
-        if (response.ok) {
-            alert(result.message);
-            location.reload();
-        } else {
-            alert(result.error);
+
+            const response = await fetch(`/api/fields/${collectionName}/${fieldName}`, {
+                method: 'DELETE'
+            });
+
+            const result = await response.json();
+            if (response.ok) {
+                alert(result.message);
+                location.reload();
+            } else {
+                alert(result.error);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Виникла помилка при видаленнi поля');
         }
-    } catch (error) {
-        console.error('Error:', error);
-        alert('Виникла помилка при видаленнi поля');
     }
 }
 async function addNewField() {

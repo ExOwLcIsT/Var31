@@ -29,6 +29,38 @@ function getCookie(name) {
     const parts = value.split(`; ${name}=`);
     if (parts.length === 2) return parts.pop().split(';').shift();
 }
+
+
+async function access() {
+    const response = await fetch('/api/role');
+
+    let data = await response.json();
+    console.log(data)
+    let elements = []
+    switch (data.role) {
+        case "owner":
+            console.log("yes")
+             elements = document.getElementsByClassName("owner_access");
+            for (var i = 0; i < elements.length; i++) {
+                elements[i].style.display = "block";
+            }
+        case "admin":
+            elements = document.getElementsByClassName("admin_access");
+            for (var i = 0; i < elements.length; i++) {
+                elements[i].style.display = "block";
+            }
+        case "operator":
+            elements = document.getElementsByClassName("operator_access");
+            for (var i = 0; i < elements.length; i++) {
+                elements[i].style.display = "block";
+            }
+    }
+
+
+
+}
+
+
 async function loadPage() {
     await loadCollections();
 
@@ -38,7 +70,7 @@ async function loadPage() {
         loadFieldsForRename();
         loadFieldsForDocument();
     });
-    loadDocuments(document.getElementById('collection-select').value)
+    await loadDocuments(document.getElementById('collection-select').value)
 
     const loggedInUser = getCookie('logged_in_user');
     if (loggedInUser) {
@@ -46,7 +78,8 @@ async function loadPage() {
     } else {
         showLoginRegisterButtons();
     }
-    loadFieldsForRename();
-    loadFieldsForDocument();
+    await loadFieldsForRename();
+    await loadFieldsForDocument();
+    await access();
 }
 loadPage()

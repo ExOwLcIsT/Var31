@@ -215,7 +215,7 @@ def get_vehicles_not_passed_inspection():
 def get_drivers_by_car_brand():
     brand = request.args.get('brand')
 
-    # Запит для отримання водіїв, які їздять на автомобілях заданої марки
+    # Запит для отримання унікальних водіїв, які їздять на автомобілях заданої марки
     drivers = db.Rides.aggregate([
         {
             '$lookup': {
@@ -229,6 +229,11 @@ def get_drivers_by_car_brand():
             '$unwind': '$car_info'
         },
         {
+            '$match': {
+                'car_info.brand': brand  # Фільтрація по марці автомобіля
+            }
+        },
+        {
             '$lookup': {
                 'from': 'Employees',
                 'localField': 'driver_id',
@@ -240,13 +245,22 @@ def get_drivers_by_car_brand():
             '$unwind': '$driver_info'
         },
         {
+            '$group': {
+                '_id': {
+                    'first_name': '$driver_info.first_name',
+                    'last_name': '$driver_info.last_name'
+                }
+            }
+        },
+        {
             '$project': {
                 '_id': 0,
-                'first_name': '$driver_info.first_name',
-                'last_name': '$driver_info.last_name',
+                'first_name': '$_id.first_name',
+                'last_name': '$_id.last_name',
             }
         }
     ])
+    
     result = json.dumps(list(drivers))
     return result
 

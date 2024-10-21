@@ -1,6 +1,6 @@
 from datetime import datetime
 import random
-from flask import Flask,  render_template, session
+from flask import Flask, redirect,  render_template, request, session
 from routes.collections import collections_bp
 from routes.documents import documents_bp
 from routes.login import login_bp
@@ -17,6 +17,12 @@ app.register_blueprint(requests_bp)
 
 @app.route('/', methods=['GET'])
 def get_index_page():
+    user = request.cookies.get('logged_in_user');
+    if (user is None):    
+        return redirect("/login");
+    user_db = db.Keys.find_one ({"username" : user});
+    if (user_db is None):    
+        return redirect("/login");
     return render_template(
         "index.html"
     )

@@ -32,7 +32,7 @@
             </div>
         </div>
 
-        <div class="add-collection">
+        <div class="add-collection owner_access">
             <input type="text" id="new-collection-name" placeholder="Назва нової колекції">
             <button id="add-collection-btn" class="btn add" onclick="addNewCollection()">Додати колекцію</button>
         </div>
@@ -41,12 +41,12 @@
             <label for="collection-select">Оберіть колекцію для відображення:</label>
             <select id="collection-select">
             </select>
-            <button id="delete-collection-btn" class="btn delete" onclick="deleteCollection()">Видалити обрану
+            <button id="delete-collection-btn" class="btn delete owner_access" onclick="deleteCollection()">Видалити обрану
                 колекцію</button>
         </div>
 
-        <div class="new-field">
-            <h4>Додати нову колонку</h4>
+        <div class="new-field admin_access" >
+            <h4>Додати нове поле</h4>
             <input type="text" id="field-name" placeholder="Назва поля">
             <select id="field-type">
                 <option value="string">Text</option>
@@ -58,17 +58,17 @@
             <button class="btn" onclick="addNewField()">Додати поле</button>
             </form>
         </div>
-        <div class="rename-field">
-            <h4>Перейменувати колонку</h4>
+        <div class="rename-field admin_access" >
+            <h4>Перейменувати поле</h4>
             <label for="field-select">Оберіть поле для перейменування:</label>
             <select id="field-select" required>
             </select>
 
-            <input type="text" id="new-field-name" placeholder="Нова назва колонки" required>
+            <input type="text" id="new-field-name" placeholder="Нова назва поля" required>
             <button class="btn" onclick="renameField()">Перейменувати</button>
             <button class="btn delete" onclick="deleteField()">Видалити</button>
         </div>
-        <div class="add-document">
+        <div class="add-document operator_access">
             <h4>Додати новий документ</h4>
             <form id="document-form" onsubmit="createDocument(event)">
                 <div id="document-fields-container"></div>

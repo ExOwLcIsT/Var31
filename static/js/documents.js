@@ -30,6 +30,7 @@ async function loadDocuments(collectionName) {
                 // Створюємо кнопку редагування
                 const editButton = document.createElement('button');
                 editButton.classList.add('edit-button');
+                editButton.classList.add('operator_access');
                 editButton.innerText = 'Редагувати';
 
                 // Обробник кліку на кнопку "Редагувати"
@@ -63,6 +64,7 @@ async function loadDocuments(collectionName) {
                     fieldValueElement.replaceWith(inputElement);
 
                     // Заміна кнопки на "Зберегти"
+                    editButton.classList.add ("operator_access");
                     editButton.innerText = 'Зберегти';
                     editButton.addEventListener('click', () => {
                         // Зберігаємо нове значення в залежності від типу
@@ -83,6 +85,7 @@ async function loadDocuments(collectionName) {
 
             const deleteButton = document.createElement('button');
             deleteButton.classList.add('delete-button');
+            deleteButton.classList.add('operator_access');
             deleteButton.innerText = 'Видалити';
             deleteButton.addEventListener('click', async () => {
                 deleteDocument(collectionName, documentId)
@@ -106,7 +109,7 @@ async function deleteDocument(collectionName, doc_id) {
 
             if (deleteResponse.ok) {
                 alert('Документ видалено успішно');
-                loadDocuments(collectionName);
+               location.reload();
             } else {
                 const deleteResult = await deleteResponse.json();
                 alert(`Помилка: ${deleteResult.message || 'Не вдалося видалити документ'}`);
@@ -130,7 +133,7 @@ async function updateDocument(collectionName, docId, updatedFields) {
         const data = await response.json();
         if (response.ok) {
             alert('Документ оновлено успішно:', data);
-            loadDocuments(collectionName);
+            location.reload();
         } else {
             alert('Помилка при оновленні документа:', response.statusText);
         }
@@ -227,7 +230,7 @@ async function createDocument(event) {
         if (response.ok) {
             alert(result.message);
             document.getElementById('document-form').reset(); // Reset the form
-            loadDocuments(collectionName);
+            location.reload();
         } else {
             alert(result.error);
         }

@@ -69,20 +69,11 @@ document.addEventListener('DOMContentLoaded', function () {
     forgotPasswordBtn.addEventListener('click', async function () {
         const username = document.getElementById('login-username').value;
 
-        const response = await fetch('/api/login/forgot-password', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ username })
-        });
+        const response = await fetch(`/api/forgot-password/${username}`);
 
         const data = await response.json();
 
-        if (response.ok) {
-            document.getElementById('forgot-password-response').textContent = `Ваш пароль: ${data.password}`;
-        } else {
-            document.getElementById('forgot-password-response').textContent = data.error;
-        }
+        document.getElementById('forgot-password-response').textContent = `${data.message}`;
+        
     });
 });
