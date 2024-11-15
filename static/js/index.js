@@ -69,6 +69,7 @@ async function loadPage() {
         loadDocuments(selectedCollection);
         loadFieldsForRename();
         loadFieldsForDocument();
+        access()
     });
     await loadDocuments(document.getElementById('collection-select').value)
 

@@ -5,7 +5,6 @@ from bson import json_util
 from decorators.role_controls import get_current_user, role_required
 
 from dbconnection.db import db
-from routes.login import get_role
 collections_bp = Blueprint('collections', __name__)
 
 

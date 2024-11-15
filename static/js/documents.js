@@ -25,7 +25,7 @@ async function loadDocuments(collectionName) {
                 // Створюємо HTML-контент для поля
                 const fieldValueElement = document.createElement('span');
                 fieldValueElement.classList.add('field-value');
-                fieldValueElement.innerText = field.field_value;
+                fieldValueElement.innerText = JSON.stringify(field.field_value);
 
                 // Створюємо кнопку редагування
                 const editButton = document.createElement('button');
